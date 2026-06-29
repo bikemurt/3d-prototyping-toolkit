@@ -1,0 +1,116 @@
+[gd_scene format=3 uid="uid://hd724hf7jy8d"]
+
+[ext_resource type="Script" uid="uid://cspa7vls7b6gh" path="res://addons/prototyping_toolkit_3d/input_setup.gd" id="1_a202f"]
+[ext_resource type="Script" uid="uid://cwvfopl16l1gp" path="res://addons/prototyping_toolkit_3d/simple_floor.gd" id="2_noarx"]
+[ext_resource type="Script" uid="uid://mnqcfoxivawi" path="res://addons/prototyping_toolkit_3d/simple_pause.gd" id="3_r3fl7"]
+[ext_resource type="Script" uid="uid://b4t5of6xdp0eu" path="res://addons/prototyping_toolkit_3d/first_person_character.gd" id="4_r3fl7"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_a0tk4"]
+size = Vector3(1000, 1, 1000)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r3fl7"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jka67"]
+size = Vector3(1000, 1, 1000)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_r3fl7"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_jka67"]
+sky_material = SubResource("ProceduralSkyMaterial_r3fl7")
+
+[sub_resource type="Environment" id="Environment_i5arm"]
+background_mode = 2
+sky = SubResource("Sky_jka67")
+tonemap_mode = 2
+
+[sub_resource type="TorusMesh" id="TorusMesh_r3fl7"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jka67"]
+radius = 0.4
+height = 1.8
+
+[node name="Node3D" type="Node3D" unique_id=7953707]
+
+[node name="ProtoInputSetup" type="Node" parent="." unique_id=935269226]
+script = ExtResource("1_a202f")
+wasd_added = true
+joystick_look_added = true
+jump_added = true
+pause_added = true
+metadata/_custom_type_script = "uid://cspa7vls7b6gh"
+
+[node name="ProtoSimpleFloor" type="StaticBody3D" parent="." unique_id=1359460328]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+script = ExtResource("2_noarx")
+metadata/_custom_type_script = "uid://cwvfopl16l1gp"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ProtoSimpleFloor" unique_id=845399697]
+mesh = SubResource("BoxMesh_a0tk4")
+surface_material_override/0 = SubResource("StandardMaterial3D_r3fl7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ProtoSimpleFloor" unique_id=780469436]
+shape = SubResource("BoxShape3D_jka67")
+
+[node name="ProtoSimplePause" type="CanvasLayer" parent="." unique_id=1350880359 node_paths=PackedStringArray("resume_button", "quit_button")]
+process_mode = 3
+script = ExtResource("3_r3fl7")
+resume_button = NodePath("Panel/VBoxContainer/ResumeButton")
+quit_button = NodePath("Panel/VBoxContainer/QuitButton")
+metadata/_custom_type_script = "uid://mnqcfoxivawi"
+
+[node name="Panel" type="Panel" parent="ProtoSimplePause" unique_id=753660058]
+custom_minimum_size = Vector2(400, 400)
+offset_left = 50.0
+offset_top = 50.0
+offset_right = 50.0
+offset_bottom = 50.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ProtoSimplePause/Panel" unique_id=1033239174]
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 400.0
+
+[node name="Label" type="Label" parent="ProtoSimplePause/Panel/VBoxContainer" unique_id=445286782]
+layout_mode = 2
+text = "Pause Menu"
+
+[node name="ResumeButton" type="Button" parent="ProtoSimplePause/Panel/VBoxContainer" unique_id=1453012307]
+layout_mode = 2
+text = "Resume"
+
+[node name="QuitButton" type="Button" parent="ProtoSimplePause/Panel/VBoxContainer" unique_id=1242780061]
+layout_mode = 2
+text = "Quit"
+
+[node name="Node3D" type="Node3D" parent="." unique_id=1726339220]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Node3D" unique_id=1360641406]
+transform = Transform3D(-0.7626909, 0, 0.6467632, 0, 1, 0, -0.6467632, 0, -0.7626909, 5.743109, 1.2026689, 4.543375)
+use_collision = true
+size = Vector3(1, 4.7626953, 4.5216064)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Node3D" unique_id=501355257]
+environment = SubResource("Environment_i5arm")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Node3D" unique_id=603802412]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D" unique_id=1979960577]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4300594, 1.1981395, -0.5122011)
+mesh = SubResource("TorusMesh_r3fl7")
+
+[node name="ProtoFirstPersonCharacter" type="CharacterBody3D" parent="." unique_id=1105943981 node_paths=PackedStringArray("camera_3d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+script = ExtResource("4_r3fl7")
+camera_3d = NodePath("Camera3D")
+metadata/_custom_type_script = "uid://b4t5of6xdp0eu"
+
+[node name="Camera3D" type="Camera3D" parent="ProtoFirstPersonCharacter" unique_id=1508640241]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.726, -0.12)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ProtoFirstPersonCharacter" unique_id=1429242516]
+shape = SubResource("CapsuleShape3D_jka67")
