@@ -14,6 +14,7 @@ extends Node
 	add_joystick_look.call()
 	add_jump.call()
 	add_pause.call()
+	add_interact.call()
 
 @export_category("Add Inputs")
 @export_tool_button("Add WASD Inputs") var add_wasd := func() -> void:
@@ -41,6 +42,11 @@ extends Node
 	add_button_binding("pause", "ui_select", KEY_ESCAPE, true, JOY_BUTTON_START)
 	pause_added = true
 	Proto.proto_print("Pause input configured")
+
+@export_tool_button("Add Interact Binding") var add_interact := func() -> void:
+	add_button_binding("interact", "ui_select", KEY_E, true, JOY_BUTTON_X)
+	pause_added = true
+	Proto.proto_print("Interact input configured")
 
 @export_category("Input Status")
 @export var wasd_added := false
