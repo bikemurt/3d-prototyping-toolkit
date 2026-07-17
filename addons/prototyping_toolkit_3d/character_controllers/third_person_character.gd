@@ -27,7 +27,7 @@ extends CharacterBody3D
 	Proto.add_node(self, spring_arm)
 	
 	camera_3d = Camera3D.new()
-	Proto.add_node(self, camera_3d)
+	Proto.add_node(spring_arm, camera_3d)
 	
 	var collision_shape_3d := CollisionShape3D.new()
 	

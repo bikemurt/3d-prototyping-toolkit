@@ -3,12 +3,12 @@
 [ext_resource type="Script" uid="uid://cspa7vls7b6gh" path="res://addons/prototyping_toolkit_3d/utilities/input_setup.gd" id="1_a202f"]
 [ext_resource type="Script" uid="uid://cwvfopl16l1gp" path="res://addons/prototyping_toolkit_3d/objects/simple_floor.gd" id="2_noarx"]
 [ext_resource type="Script" uid="uid://mnqcfoxivawi" path="res://addons/prototyping_toolkit_3d/pause/simple_pause.gd" id="3_r3fl7"]
-[ext_resource type="Script" uid="uid://b4t5of6xdp0eu" path="res://addons/prototyping_toolkit_3d/character_controllers/first_person_character.gd" id="4_r3fl7"]
 [ext_resource type="Script" uid="uid://rcs8mnmasa4y" path="res://addons/prototyping_toolkit_3d/objects/interact_area.gd" id="5_jka67"]
 [ext_resource type="Script" uid="uid://uvfih8b1edyb" path="res://addons/prototyping_toolkit_3d/hud/hud.gd" id="6_i5arm"]
 [ext_resource type="Script" uid="uid://w7pc4bi2hrwc" path="res://addons/prototyping_toolkit_3d/hud/crosshair.gd" id="7_wc5p8"]
 [ext_resource type="Script" uid="uid://cw7btrv553exk" path="res://addons/prototyping_toolkit_3d/systems/signal_hub.gd" id="8_jsk3o"]
 [ext_resource type="Script" uid="uid://bb7cpovba4gjj" path="res://addons/prototyping_toolkit_3d/objects/interact_force_push.gd" id="9_4arys"]
+[ext_resource type="Script" uid="uid://ug2t64m1nmhx" path="res://addons/prototyping_toolkit_3d/character_controllers/third_person_character.gd" id="9_6iypd"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_r3fl7"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -33,10 +33,6 @@ albedo_color = Color(0, 0, 0, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_tereu"]
 size = Vector3(1000, 1, 1000)
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jsk3o"]
-radius = 0.4
-height = 1.8
-
 [sub_resource type="BoxMesh" id="BoxMesh_jsk3o"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4arys"]
@@ -44,6 +40,20 @@ height = 1.8
 [sub_resource type="BoxMesh" id="BoxMesh_6iypd"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cdqbm"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4arys"]
+radius = 0.4
+height = 1.8
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_6iypd"]
+radius = 0.4
+height = 1.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tereu"]
+albedo_color = Color(0.5411765, 0.16862746, 0.8862745, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cdqbm"]
+albedo_color = Color(0, 1, 0, 1)
 
 [node name="Node3D" type="Node3D" unique_id=7953707]
 
@@ -139,24 +149,6 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
 text = "[E] Interact"
 
-[node name="ProtoFirstPersonCharacter" type="CharacterBody3D" parent="." unique_id=313310851 node_paths=PackedStringArray("camera_3d", "raycast")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-script = ExtResource("4_r3fl7")
-camera_3d = NodePath("Camera3D")
-raycast = NodePath("Camera3D/RayCast3D")
-metadata/_custom_type_script = "uid://b4t5of6xdp0eu"
-
-[node name="Camera3D" type="Camera3D" parent="ProtoFirstPersonCharacter" unique_id=1233757556]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.726, -0.12)
-
-[node name="RayCast3D" type="RayCast3D" parent="ProtoFirstPersonCharacter/Camera3D" unique_id=442313283]
-target_position = Vector3(0, 0, -2)
-collide_with_areas = true
-collide_with_bodies = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ProtoFirstPersonCharacter" unique_id=1536843948]
-shape = SubResource("CapsuleShape3D_jsk3o")
-
 [node name="ProtoInteractArea" type="Node3D" parent="." unique_id=744237377 node_paths=PackedStringArray("interact_label")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4701643, 0.5, 4.4900208)
 script = ExtResource("5_jka67")
@@ -191,3 +183,29 @@ shape = SubResource("BoxShape3D_cdqbm")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ProtoInteractForcePush" unique_id=1113478802]
 shape = SubResource("BoxShape3D_cdqbm")
+
+[node name="ProtoThirdPersonCharacter" type="CharacterBody3D" parent="." unique_id=2048838635 node_paths=PackedStringArray("camera_3d", "spring_arm", "mesh_instance")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+script = ExtResource("9_6iypd")
+camera_3d = NodePath("SpringArm3D/Camera3D")
+spring_arm = NodePath("SpringArm3D")
+mesh_instance = NodePath("MeshInstance3D")
+metadata/_custom_type_script = "uid://ug2t64m1nmhx"
+
+[node name="SpringArm3D" type="SpringArm3D" parent="ProtoThirdPersonCharacter" unique_id=436832573]
+transform = Transform3D(1, 0, 0, 0, 0.9396926, 0.34202012, 0, -0.34202012, 0.9396926, 0, 1, 0)
+spring_length = 3.0
+
+[node name="Camera3D" type="Camera3D" parent="ProtoThirdPersonCharacter/SpringArm3D" unique_id=1418496157]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ProtoThirdPersonCharacter" unique_id=1773199950]
+shape = SubResource("CapsuleShape3D_4arys")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ProtoThirdPersonCharacter" unique_id=482099653]
+mesh = SubResource("CapsuleMesh_6iypd")
+surface_material_override/0 = SubResource("StandardMaterial3D_tereu")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="ProtoThirdPersonCharacter" unique_id=793849010]
+transform = Transform3D(-1.3113417e-08, -0.3, 0, 0.3, -1.3113417e-08, 0, 0, 0, 0.3, 0, 0.4, -0.4)
+mesh = SubResource("CapsuleMesh_6iypd")
+surface_material_override/0 = SubResource("StandardMaterial3D_cdqbm")
