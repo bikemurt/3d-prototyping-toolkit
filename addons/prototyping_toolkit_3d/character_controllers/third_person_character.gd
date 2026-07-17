@@ -55,7 +55,7 @@ extends CharacterBody3D
 	var mat_2 := StandardMaterial3D.new()
 	mat_2.albedo_color = Color.GREEN
 	mesh_instance_2.set_surface_override_material(0, mat_2)
-	Proto.add_node(self, mesh_instance_2, "MeshInstance3D2")
+	Proto.add_node(mesh_instance, mesh_instance_2, "MeshInstance3D2")
 	
 	position.y = 0.9
 	

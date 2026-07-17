@@ -192,20 +192,20 @@ spring_arm = NodePath("SpringArm3D")
 mesh_instance = NodePath("MeshInstance3D")
 metadata/_custom_type_script = "uid://ug2t64m1nmhx"
 
-[node name="SpringArm3D" type="SpringArm3D" parent="ProtoThirdPersonCharacter" unique_id=436832573]
+[node name="SpringArm3D" type="SpringArm3D" parent="ProtoThirdPersonCharacter" unique_id=877328539]
 transform = Transform3D(1, 0, 0, 0, 0.9396926, 0.34202012, 0, -0.34202012, 0.9396926, 0, 1, 0)
 spring_length = 3.0
 
-[node name="Camera3D" type="Camera3D" parent="ProtoThirdPersonCharacter/SpringArm3D" unique_id=1418496157]
+[node name="Camera3D" type="Camera3D" parent="ProtoThirdPersonCharacter/SpringArm3D" unique_id=993101675]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ProtoThirdPersonCharacter" unique_id=1773199950]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ProtoThirdPersonCharacter" unique_id=180702328]
 shape = SubResource("CapsuleShape3D_4arys")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ProtoThirdPersonCharacter" unique_id=482099653]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ProtoThirdPersonCharacter" unique_id=672148420]
 mesh = SubResource("CapsuleMesh_6iypd")
 surface_material_override/0 = SubResource("StandardMaterial3D_tereu")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="ProtoThirdPersonCharacter" unique_id=793849010]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="ProtoThirdPersonCharacter/MeshInstance3D" unique_id=1384743900]
 transform = Transform3D(-1.3113417e-08, -0.3, 0, 0.3, -1.3113417e-08, 0, 0, 0, 0.3, 0, 0.4, -0.4)
 mesh = SubResource("CapsuleMesh_6iypd")
 surface_material_override/0 = SubResource("StandardMaterial3D_cdqbm")
