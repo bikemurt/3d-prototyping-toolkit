@@ -14,17 +14,13 @@ extends StaticBody3D
 	mat.albedo_color = Color(Color.BLACK)
 	
 	mesh_instance.set_surface_override_material(0, mat)
-	
-	add_child(mesh_instance)
-	mesh_instance.owner = get_tree().edited_scene_root
+	Proto.add_node(self, mesh_instance)
 	
 	var collision := CollisionShape3D.new()
 	var box_shape := BoxShape3D.new()
 	box_shape.size = Vector3(size, 1, size)
 	collision.shape = box_shape
-	
-	add_child(collision)
-	collision.owner = get_tree().edited_scene_root
+	Proto.add_node(self, collision)
 	
 	position.y = -0.5
 	

@@ -91,11 +91,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 script = ExtResource("2_noarx")
 metadata/_custom_type_script = "uid://cwvfopl16l1gp"
 
-[node name="@MeshInstance3D@43187" type="MeshInstance3D" parent="ProtoSimpleFloor" unique_id=1310482722]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ProtoSimpleFloor" unique_id=771308112]
 mesh = SubResource("BoxMesh_4arys")
 surface_material_override/0 = SubResource("StandardMaterial3D_6iypd")
 
-[node name="@CollisionShape3D@43188" type="CollisionShape3D" parent="ProtoSimpleFloor" unique_id=1288084439]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ProtoSimpleFloor" unique_id=876548676]
 shape = SubResource("BoxShape3D_tereu")
 
 [node name="ProtoSimplePause" type="CanvasLayer" parent="." unique_id=1350880359 node_paths=PackedStringArray("resume_button", "quit_button")]
