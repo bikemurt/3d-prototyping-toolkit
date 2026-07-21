@@ -1,6 +1,6 @@
 @tool
 class_name ProtoInteractArea
-extends Node3D
+extends Area3D
 
 @export_tool_button("Generate Nodes") var initialize_nodes := func() -> void:
 	for c in get_children(): c.free()
@@ -12,15 +12,13 @@ extends Node3D
 		mesh_instance.mesh = box_mesh
 		Proto.add_node(self, mesh_instance)
 	
-	var area_3d := Area3D.new()
 	var col := CollisionShape3D.new()
 	
 	var box_shape := BoxShape3D.new()
 	box_shape.size = Vector3.ONE
 	col.shape = box_shape
 	
-	Proto.add_node(self, area_3d)
-	Proto.add_node(area_3d, col)
+	Proto.add_node(self, col)
 	
 	interact_label = Label3D.new()
 	interact_label.text = "Interact"
