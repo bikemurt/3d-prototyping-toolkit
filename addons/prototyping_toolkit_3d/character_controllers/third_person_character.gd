@@ -94,16 +94,17 @@ func _physics_process(delta: float) -> void:
 		velocity.y = jump_velocity
 	
 	var input_dir := Vector2.ZERO
-	if wasd_controls:
-		input_dir = Input.get_vector(&"left", &"right", &"forward", &"back")
-	else:
-		input_dir = Input.get_vector(&"ui_left", &"ui_right", &"ui_up", &"ui_down")
-	
-	if joystick_look_controls:
-		var look_right := Input.get_axis(&"look_left", &"look_right")
-		var look_up := Input.get_axis(&"look_down", &"look_up")
-		# fyi the last factor is a fudge factor to make the joypad feel similar to mouse at the same sens
-		pivot_camera(look_right, look_up, joypad_sens_x, joypad_sens_y, 2.0)
+	if camera_3d.current:
+		if wasd_controls:
+			input_dir = Input.get_vector(&"left", &"right", &"forward", &"back")
+		else:
+			input_dir = Input.get_vector(&"ui_left", &"ui_right", &"ui_up", &"ui_down")
+		
+		if joystick_look_controls:
+			var look_right := Input.get_axis(&"look_left", &"look_right")
+			var look_up := Input.get_axis(&"look_down", &"look_up")
+			# fyi the last factor is a fudge factor to make the joypad feel similar to mouse at the same sens
+			pivot_camera(look_right, look_up, joypad_sens_x, joypad_sens_y, 2.0)
 	
 	var b := Basis(Vector3.UP, camera_3d.global_rotation.y)
 	var direction := (b * Vector3(input_dir.x, 0, input_dir.y))
