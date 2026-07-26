@@ -9,4 +9,4 @@ func _ready() -> void:
 		if error == OK:
 			Proto.proto_print("ProtoSetup autoload registered")
 		else:
-			print("Failed to register ProtoSetup autoload. Error code: ", error)
+			printerr("[PROTO] Failed to register ProtoSetup autoload. Error code: ", error)
