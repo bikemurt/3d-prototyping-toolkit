@@ -2,12 +2,13 @@
 
 [ext_resource type="Script" uid="uid://cspa7vls7b6gh" path="res://addons/prototyping_toolkit_3d/utilities/input_setup.gd" id="1_a202f"]
 [ext_resource type="Script" uid="uid://cwvfopl16l1gp" path="res://addons/prototyping_toolkit_3d/objects/simple_floor.gd" id="2_noarx"]
-[ext_resource type="Script" uid="uid://mnqcfoxivawi" path="res://addons/prototyping_toolkit_3d/pause/simple_pause.gd" id="3_r3fl7"]
-[ext_resource type="Script" uid="uid://rcs8mnmasa4y" path="res://addons/prototyping_toolkit_3d/objects/interact_area.gd" id="5_jka67"]
-[ext_resource type="Script" uid="uid://uvfih8b1edyb" path="res://addons/prototyping_toolkit_3d/hud/hud.gd" id="6_i5arm"]
-[ext_resource type="Script" uid="uid://w7pc4bi2hrwc" path="res://addons/prototyping_toolkit_3d/hud/crosshair.gd" id="7_wc5p8"]
-[ext_resource type="Script" uid="uid://b4t5of6xdp0eu" path="res://addons/prototyping_toolkit_3d/character_controllers/first_person_character.gd" id="9_4arys"]
-[ext_resource type="Script" uid="uid://bb7cpovba4gjj" path="res://addons/prototyping_toolkit_3d/objects/interact_force_push.gd" id="9_6iypd"]
+[ext_resource type="Script" uid="uid://mnqcfoxivawi" path="res://addons/prototyping_toolkit_3d/pause/simple_pause.gd" id="3_a0tk4"]
+[ext_resource type="Script" uid="uid://dor1bqfxqlvnc" path="res://addons/prototyping_toolkit_3d/proto_setup.gd" id="4_r3fl7"]
+[ext_resource type="Script" uid="uid://uvfih8b1edyb" path="res://addons/prototyping_toolkit_3d/hud/hud.gd" id="5_i5arm"]
+[ext_resource type="Script" uid="uid://w7pc4bi2hrwc" path="res://addons/prototyping_toolkit_3d/hud/crosshair.gd" id="6_wc5p8"]
+[ext_resource type="Script" uid="uid://ug2t64m1nmhx" path="res://addons/prototyping_toolkit_3d/character_controllers/third_person_character.gd" id="7_wc5p8"]
+[ext_resource type="Script" uid="uid://bb7cpovba4gjj" path="res://addons/prototyping_toolkit_3d/objects/interact_force_push.gd" id="8_jsk3o"]
+[ext_resource type="Script" uid="uid://rcs8mnmasa4y" path="res://addons/prototyping_toolkit_3d/objects/interact_area.gd" id="9_4arys"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jsk3o"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -21,163 +22,188 @@ background_mode = 2
 sky = SubResource("Sky_4arys")
 tonemap_mode = 2
 
-[sub_resource type="BoxMesh" id="BoxMesh_r3fl7"]
+[sub_resource type="BoxMesh" id="BoxMesh_noarx"]
 size = Vector3(1000, 1, 1000)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jka67"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a0tk4"]
 albedo_color = Color(0, 0, 0, 1)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_i5arm"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_r3fl7"]
 size = Vector3(1000, 1, 1000)
 
-[sub_resource type="BoxMesh" id="BoxMesh_jsk3o"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_4arys"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6iypd"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jsk3o"]
 radius = 0.4
 height = 1.8
 
-[sub_resource type="BoxMesh" id="BoxMesh_tereu"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_4arys"]
+radius = 0.4
+height = 1.8
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_cdqbm"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6iypd"]
+albedo_color = Color(0.5411765, 0.16862746, 0.8862745, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tereu"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4arys"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6iypd"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_6iypd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tereu"]
 
 [node name="Node3D" type="Node3D" unique_id=7953707]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=684508467]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1270327555]
 environment = SubResource("Environment_6iypd")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1427008931]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1862102160]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
 
-[node name="ProtoInputSetup" type="Node" parent="." unique_id=505963770]
-script = ExtResource("1_a202f")
-wasd_added = true
-joystick_look_added = true
-pause_added = true
-metadata/_custom_type_script = "uid://cspa7vls7b6gh"
-
-[node name="ProtoSimpleFloor" type="StaticBody3D" parent="." unique_id=973090286]
+[node name="ProtoSimpleFloor" type="StaticBody3D" parent="." unique_id=1520329204]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 script = ExtResource("2_noarx")
 metadata/_custom_type_script = "uid://cwvfopl16l1gp"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ProtoSimpleFloor" unique_id=1884531030]
-mesh = SubResource("BoxMesh_r3fl7")
-surface_material_override/0 = SubResource("StandardMaterial3D_jka67")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ProtoSimpleFloor" unique_id=1247509838]
+mesh = SubResource("BoxMesh_noarx")
+surface_material_override/0 = SubResource("StandardMaterial3D_a0tk4")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ProtoSimpleFloor" unique_id=772236036]
-shape = SubResource("BoxShape3D_i5arm")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ProtoSimpleFloor" unique_id=1326198150]
+shape = SubResource("BoxShape3D_r3fl7")
 
-[node name="ProtoSimplePause" type="CanvasLayer" parent="." unique_id=718597544 node_paths=PackedStringArray("resume_button", "quit_button")]
+[node name="ProtoInputSetup" type="Node" parent="." unique_id=1201284752]
+script = ExtResource("1_a202f")
+reload_required = true
+wasd_added = true
+joystick_look_added = true
+jump_added = true
+pause_added = true
+metadata/_custom_type_script = "uid://cspa7vls7b6gh"
+
+[node name="ProtoSimplePause" type="CanvasLayer" parent="." unique_id=1256823569 node_paths=PackedStringArray("resume_button", "quit_button")]
 process_mode = 3
-script = ExtResource("3_r3fl7")
+script = ExtResource("3_a0tk4")
 resume_button = NodePath("Panel/VBoxContainer/Button")
-quit_button = NodePath("Panel/VBoxContainer/@Button@50854")
+quit_button = NodePath("Panel/VBoxContainer/@Button@23930")
 metadata/_custom_type_script = "uid://mnqcfoxivawi"
 
-[node name="Panel" type="Panel" parent="ProtoSimplePause" unique_id=584772715]
+[node name="Panel" type="Panel" parent="ProtoSimplePause" unique_id=1256839964]
 custom_minimum_size = Vector2(400, 400)
 offset_left = 50.0
 offset_top = 50.0
 offset_right = 50.0
 offset_bottom = 50.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ProtoSimplePause/Panel" unique_id=258179381]
+[node name="VBoxContainer" type="VBoxContainer" parent="ProtoSimplePause/Panel" unique_id=607206958]
 layout_mode = 0
 offset_right = 400.0
 offset_bottom = 400.0
 
-[node name="Label" type="Label" parent="ProtoSimplePause/Panel/VBoxContainer" unique_id=744118647]
+[node name="Label" type="Label" parent="ProtoSimplePause/Panel/VBoxContainer" unique_id=1087830062]
 layout_mode = 2
 text = "Pause Menu"
 
-[node name="Button" type="Button" parent="ProtoSimplePause/Panel/VBoxContainer" unique_id=156808082]
+[node name="Button" type="Button" parent="ProtoSimplePause/Panel/VBoxContainer" unique_id=163558276]
 layout_mode = 2
 text = "Resume"
 
-[node name="@Button@50854" type="Button" parent="ProtoSimplePause/Panel/VBoxContainer" unique_id=21161980]
+[node name="@Button@23930" type="Button" parent="ProtoSimplePause/Panel/VBoxContainer" unique_id=411240567]
 layout_mode = 2
 text = "Quit"
 
-[node name="ProtoHUD" type="CanvasLayer" parent="." unique_id=1570818733 node_paths=PackedStringArray("interact_label", "proto_signal_hub")]
+[node name="ProtoSetup" type="Node" parent="." unique_id=738273938]
+script = ExtResource("4_r3fl7")
+metadata/_custom_type_script = "uid://dor1bqfxqlvnc"
+
+[node name="ProtoHUD" type="CanvasLayer" parent="." unique_id=537778420 node_paths=PackedStringArray("interact_label")]
 layer = 10
-script = ExtResource("6_i5arm")
+script = ExtResource("5_i5arm")
 interact_label = NodePath("Label")
-proto_signal_hub = NodePath("")
 metadata/_custom_type_script = "uid://uvfih8b1edyb"
 
-[node name="ProtoCrosshair" type="Control" parent="ProtoHUD" unique_id=1080952445 node_paths=PackedStringArray("proto_signal_hub")]
+[node name="ProtoCrosshair" type="Control" parent="ProtoHUD" unique_id=321775079]
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("7_wc5p8")
-proto_signal_hub = NodePath("")
+script = ExtResource("6_wc5p8")
 
-[node name="Label" type="Label" parent="ProtoHUD" unique_id=1448434302]
-offset_left = 617.5
-offset_top = 307.5
-offset_right = 617.5
-offset_bottom = 307.5
+[node name="Label" type="Label" parent="ProtoHUD" unique_id=544166170]
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 1.0
+offset_bottom = 1.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
 text = "[E] Interact"
 
-[node name="ProtoInteractArea" type="Area3D" parent="." unique_id=1283781915 node_paths=PackedStringArray("interact_label", "proto_signal_hub")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.745, -2)
-script = ExtResource("5_jka67")
-interact_label = NodePath("Label3D")
-proto_signal_hub = NodePath("")
-metadata/_custom_type_script = "uid://rcs8mnmasa4y"
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ProtoInteractArea" unique_id=750237886]
-mesh = SubResource("BoxMesh_jsk3o")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ProtoInteractArea" unique_id=1382961596]
-shape = SubResource("BoxShape3D_4arys")
-
-[node name="Label3D" type="Label3D" parent="ProtoInteractArea" unique_id=1520099160]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-billboard = 1
-text = "Interact"
-
-[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=877860918]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.3827586, 2.028339, 2.7344418)
-use_collision = true
-size = Vector3(1, 3.9509888, 11.438965)
-
-[node name="ProtoFirstPersonCharacter" type="CharacterBody3D" parent="." unique_id=2045067931 node_paths=PackedStringArray("camera_3d", "raycast", "proto_signal_hub")]
+[node name="ProtoThirdPersonCharacter" type="CharacterBody3D" parent="." unique_id=625322976 node_paths=PackedStringArray("camera_3d", "spring_arm", "mesh_instance", "raycast", "pivot")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-script = ExtResource("9_4arys")
-camera_3d = NodePath("Camera3D")
-raycast = NodePath("Camera3D/RayCast3D")
-proto_signal_hub = NodePath("")
-metadata/_custom_type_script = "uid://b4t5of6xdp0eu"
+script = ExtResource("7_wc5p8")
+camera_3d = NodePath("Node3D/SpringArm3D/Camera3D")
+spring_arm = NodePath("Node3D/SpringArm3D")
+mesh_instance = NodePath("MeshInstance3D")
+raycast = NodePath("Node3D/SpringArm3D/Camera3D/RayCast3D")
+pivot = NodePath("Node3D")
+metadata/_custom_type_script = "uid://ug2t64m1nmhx"
 
-[node name="Camera3D" type="Camera3D" parent="ProtoFirstPersonCharacter" unique_id=1256666453]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.726, -0.12)
+[node name="Node3D" type="Node3D" parent="ProtoThirdPersonCharacter" unique_id=1803515978]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
-[node name="RayCast3D" type="RayCast3D" parent="ProtoFirstPersonCharacter/Camera3D" unique_id=13179590]
-target_position = Vector3(0, 0, -2)
+[node name="SpringArm3D" type="SpringArm3D" parent="ProtoThirdPersonCharacter/Node3D" unique_id=320396475]
+transform = Transform3D(1, 0, 0, 0, 0.9396926, 0.34202012, 0, -0.34202012, 0.9396926, 0.6, 0, 0)
+spring_length = 2.0
+
+[node name="Camera3D" type="Camera3D" parent="ProtoThirdPersonCharacter/Node3D/SpringArm3D" unique_id=1764798637]
+
+[node name="RayCast3D" type="RayCast3D" parent="ProtoThirdPersonCharacter/Node3D/SpringArm3D/Camera3D" unique_id=2039548124]
+target_position = Vector3(0, 0, -4)
 collide_with_areas = true
 collide_with_bodies = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ProtoFirstPersonCharacter" unique_id=2056218777]
-shape = SubResource("CapsuleShape3D_6iypd")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ProtoThirdPersonCharacter" unique_id=731872504]
+shape = SubResource("CapsuleShape3D_jsk3o")
 
-[node name="ProtoInteractForcePush" type="RigidBody3D" parent="." unique_id=799399764 node_paths=PackedStringArray("proto_signal_hub")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9955416, 0.5, 1.4309306)
-script = ExtResource("9_6iypd")
-proto_signal_hub = NodePath("")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ProtoThirdPersonCharacter" unique_id=2135578005]
+mesh = SubResource("CapsuleMesh_4arys")
+surface_material_override/0 = SubResource("StandardMaterial3D_6iypd")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="ProtoThirdPersonCharacter/MeshInstance3D" unique_id=177621815]
+transform = Transform3D(-1.3113417e-08, -0.3, 0, 0.3, -1.3113417e-08, 0, 0, 0, 0.3, 0, 0.4, -0.4)
+mesh = SubResource("CapsuleMesh_4arys")
+surface_material_override/0 = SubResource("StandardMaterial3D_tereu")
+
+[node name="ProtoInteractForcePush" type="RigidBody3D" parent="." unique_id=482151008 node_paths=PackedStringArray("area_3d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9841242, 0.5, -2.6874352)
+script = ExtResource("8_jsk3o")
+area_3d = NodePath("Area3D")
 metadata/_custom_type_script = "uid://bb7cpovba4gjj"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ProtoInteractForcePush" unique_id=514535750]
-mesh = SubResource("BoxMesh_tereu")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ProtoInteractForcePush" unique_id=2041940406]
+mesh = SubResource("BoxMesh_4arys")
 
-[node name="Area3D" type="Area3D" parent="ProtoInteractForcePush" unique_id=1598259936]
+[node name="Area3D" type="Area3D" parent="ProtoInteractForcePush" unique_id=1631438987]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ProtoInteractForcePush/Area3D" unique_id=1410574017]
-shape = SubResource("BoxShape3D_cdqbm")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ProtoInteractForcePush/Area3D" unique_id=1517924070]
+shape = SubResource("BoxShape3D_6iypd")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ProtoInteractForcePush" unique_id=121297735]
-shape = SubResource("BoxShape3D_cdqbm")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ProtoInteractForcePush" unique_id=701610570]
+shape = SubResource("BoxShape3D_6iypd")
+
+[node name="ProtoInteractArea" type="Area3D" parent="." unique_id=161677968 node_paths=PackedStringArray("interact_label")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8801064, 0.5000005, 1.5599408)
+script = ExtResource("9_4arys")
+interact_label = NodePath("Label3D")
+metadata/_custom_type_script = "uid://rcs8mnmasa4y"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ProtoInteractArea" unique_id=1656134816]
+mesh = SubResource("BoxMesh_6iypd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ProtoInteractArea" unique_id=2065777979]
+shape = SubResource("BoxShape3D_tereu")
+
+[node name="Label3D" type="Label3D" parent="ProtoInteractArea" unique_id=840092938]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+billboard = 1
+text = "Interact"

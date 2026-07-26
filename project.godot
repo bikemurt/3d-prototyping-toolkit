@@ -15,6 +15,10 @@ run/main_scene="uid://hd724hf7jy8d"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+ProtoGame="*res://addons/prototyping_toolkit_3d/proto_game.gd"
+
 [input]
 
 ui_right={

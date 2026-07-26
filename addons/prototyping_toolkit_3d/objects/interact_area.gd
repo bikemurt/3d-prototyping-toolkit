@@ -33,24 +33,29 @@ extends Area3D
 @export var load_on_ready := true
 @export var mesh := true
 @export var interact_label: Label3D
-@export var proto_signal_hub: ProtoSignalHub
 
+var proto_game: Node
 var interact_tween: Tween
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		if load_on_ready:
 			if get_child_count() == 0: initialize_nodes.call()
-			proto_signal_hub = Proto.find_proto_signal_hub(get_tree().edited_scene_root)
-	else:
-		if proto_signal_hub:
-			proto_signal_hub.interact.connect(on_interact)
 		
-		if interact_label:
-			interact_label.hide()
+		return
+	
+	proto_game = Proto.get_autoload(self, "ProtoGame")
+	
+	if proto_game:
+		proto_game.signal_hub.interact.connect(on_interact)
+	
+	if interact_label:
+		interact_label.hide()
 
-func on_interact(_source: Node, node: Node) -> void:
-	interact_label.text = "Interact (%s)" % node.name
+func on_interact(source: Node, target: Node) -> void:
+	if target != self: return
+	
+	interact_label.text = "Interact (%s)" % target.name
 	interact_label.show()
 	await get_tree().create_timer(1.0).timeout
 	interact_label.hide()

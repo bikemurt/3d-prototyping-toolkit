@@ -28,12 +28,6 @@ extends CharacterBody3D
 	
 	position.y = 0.9
 	
-	if interactable_raycast:
-		proto_signal_hub = Proto.find_proto_signal_hub(get_tree().edited_scene_root)
-		if proto_signal_hub == null:
-			proto_signal_hub = ProtoSignalHub.new()
-			Proto.add_node(get_parent(), proto_signal_hub, "ProtoSignalHub")
-	
 	Proto.proto_print("First person character controller nodes configured")
 
 @export_category("Config")
@@ -66,7 +60,8 @@ extends CharacterBody3D
 @export_category("Node References")
 @export var camera_3d: Camera3D
 @export var raycast: RayCast3D
-@export var proto_signal_hub: ProtoSignalHub
+
+var proto_game: Node
 
 var wasd_controls := false
 var joystick_look_controls := false
@@ -91,14 +86,16 @@ func _ready() -> void:
 		interact_controls = InputMap.has_action(&"interact")
 		
 		if capture_mouse: Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		
+		proto_game = Proto.get_autoload(self, "ProtoGame")
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		pivot_camera(event.relative.x, event.relative.y, sens_x, sens_y)
 
 func _process(_delta: float) -> void:
-	if interactable_raycast and interact_controls:
-		Proto.process_interact_raycast(self, proto_signal_hub, raycast)
+	if proto_game and interactable_raycast and interact_controls:
+		Proto.process_interact_raycast(self, proto_game.signal_hub, raycast)
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():

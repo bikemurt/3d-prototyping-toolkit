@@ -18,7 +18,7 @@ extends RigidBody3D
 	box_shape.size = Vector3.ONE
 	col.shape = box_shape
 	
-	var area_3d := Area3D.new()
+	area_3d = Area3D.new()
 	var col_2 := col.duplicate()
 	Proto.add_node(self, area_3d)
 	Proto.add_node(area_3d, col_2)
@@ -32,17 +32,22 @@ extends RigidBody3D
 @export var load_on_ready := true
 @export var mesh := true
 @export var force_strength := 5.0
-@export var proto_signal_hub: ProtoSignalHub
+@export var area_3d: Area3D
+
+var proto_game: Node
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		if load_on_ready:
 			if get_child_count() == 0: initialize_nodes.call()
-			proto_signal_hub = Proto.find_proto_signal_hub(get_tree().edited_scene_root)
-	else:
-		if proto_signal_hub:
-			proto_signal_hub.interact.connect(on_interact)
+		return
+	
+	proto_game = Proto.get_autoload(self, "ProtoGame")
+	if proto_game:
+		proto_game.signal_hub.interact.connect(on_interact)
 
 func on_interact(source: Node3D, target: Node3D) -> void:
+	if target != area_3d: return
+	
 	var direction := source.global_position.direction_to(target.global_position)
 	apply_central_impulse(force_strength * direction)

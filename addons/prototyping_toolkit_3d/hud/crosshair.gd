@@ -8,22 +8,22 @@ enum CrossHairMode { NONE, INTERACTABLE }
 @export var on_color := Color(0,1,0,0.5)
 @export var off_color := Color(1,0,0,0.5)
 @export var radius := 3.0
-@export var proto_signal_hub: ProtoSignalHub
 
 var interact_hover := false
 
+var proto_game: Node
+
 func _ready() -> void:
 	if Engine.is_editor_hint():
-		proto_signal_hub = Proto.find_proto_signal_hub(get_tree().edited_scene_root)
-		
 		set_process(false)
 		return
-	
+		
+	proto_game = Proto.get_autoload(self, "ProtoGame")
 	queue_redraw()
 	
-	if proto_signal_hub:
-		proto_signal_hub.interact_hover_on.connect(on_interact_hover_on)
-		proto_signal_hub.interact_hover_off.connect(on_interact_hover_off)
+	if proto_game:
+		proto_game.signal_hub.interact_hover_on.connect(on_interact_hover_on)
+		proto_game.signal_hub.interact_hover_off.connect(on_interact_hover_off)
 
 func _process(_delta: float) -> void:
 	queue_redraw()

@@ -65,7 +65,6 @@ func _ready() -> void:
 		if load_on_ready and not wasd_added:
 			add_all_inputs.call()
 
-
 func has_bindings(bindings: Array[String]) -> bool:
 	for binding in bindings:
 		if not ProjectSettings.has_setting("input/" + str(binding)): return false
