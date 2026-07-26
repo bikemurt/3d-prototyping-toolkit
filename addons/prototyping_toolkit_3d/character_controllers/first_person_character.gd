@@ -28,21 +28,17 @@ extends CharacterBody3D
 	
 	position.y = 0.9
 	
-	Proto.proto_print("First person character controller nodes configured")
-	
 	if interactable_raycast:
-		var signal_hub_exists := false
-		for c in get_parent().get_children():
-			if c.name == "ProtoSignalHub":
-				signal_hub_exists = true
-				break
-		
-		if not signal_hub_exists:
-			var signal_hub := ProtoSignalHub.new()
-			Proto.add_node(get_parent(), signal_hub, "ProtoSignalHub")
+		proto_signal_hub = Proto.find_proto_signal_hub(get_tree().edited_scene_root)
+		if proto_signal_hub == null:
+			proto_signal_hub = ProtoSignalHub.new()
+			Proto.add_node(get_parent(), proto_signal_hub, "ProtoSignalHub")
+	
+	Proto.proto_print("First person character controller nodes configured")
 
 @export_category("Config")
 @export var load_on_ready := true
+@export var capture_mouse := true
 
 ## Interactable Raycasts requiire the ProtoSignalHub component
 @export var interactable_raycast := true:
@@ -67,12 +63,10 @@ extends CharacterBody3D
 @export var joypad_sens_x := -0.07
 @export var joypad_sens_y := -0.07
 
-@export_category("Mouse Behaviour")
-@export var capture_mouse := true
-
 @export_category("Node References")
 @export var camera_3d: Camera3D
 @export var raycast: RayCast3D
+@export var proto_signal_hub: ProtoSignalHub
 
 var wasd_controls := false
 var joystick_look_controls := false
@@ -103,22 +97,8 @@ func _input(event: InputEvent) -> void:
 		pivot_camera(event.relative.x, event.relative.y, sens_x, sens_y)
 
 func _process(_delta: float) -> void:
-	if interactable_raycast and raycast:
-		var is_colliding := raycast.is_colliding()
-		var collider := raycast.get_collider()
-		if is_colliding != last_is_colliding:
-			if Proto.signal_hub:
-				if is_colliding:
-					Proto.signal_hub.interact_hover_on.emit(collider)
-				else:
-					Proto.signal_hub.interact_hover_off.emit()
-			
-			last_is_colliding = is_colliding
-		
-		if is_colliding and interact_controls and \
-			interactable_raycast and \
-			Input.is_action_just_pressed(&"interact"):
-			Proto.signal_hub.interact.emit(collider)
+	if interactable_raycast and interact_controls:
+		Proto.process_interact_raycast(proto_signal_hub, raycast)
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():

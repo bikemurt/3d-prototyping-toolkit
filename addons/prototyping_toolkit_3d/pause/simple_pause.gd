@@ -57,6 +57,7 @@ func _process(_delta: float) -> void:
 	if InputMap.has_action(&"pause"):
 		if Input.is_action_just_pressed(&"pause"):
 			visible = not visible
+			resume_button.grab_focus()
 	
 func on_visibility_changed() -> void:
 	if visible:

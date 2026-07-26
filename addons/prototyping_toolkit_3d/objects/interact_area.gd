@@ -33,6 +33,7 @@ extends Area3D
 @export var load_on_ready := true
 @export var mesh := true
 @export var interact_label: Label3D
+@export var proto_signal_hub: ProtoSignalHub
 
 var interact_tween: Tween
 
@@ -40,9 +41,11 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		if load_on_ready:
 			if get_child_count() == 0: initialize_nodes.call()
+			proto_signal_hub = Proto.find_proto_signal_hub(get_tree().edited_scene_root)
 	else:
-		if Proto.signal_hub:
-			Proto.signal_hub.interact.connect(on_interact)
+		if proto_signal_hub:
+			proto_signal_hub.interact.connect(on_interact)
+		
 		if interact_label:
 			interact_label.hide()
 

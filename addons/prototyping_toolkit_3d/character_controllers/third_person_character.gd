@@ -2,32 +2,29 @@
 class_name ProtoThirdPersonCharacter
 extends CharacterBody3D
 
-@export var speed := 5.0
-@export var jump_velocity := 4.5
-@export var sens_x := -0.07
-@export var sens_y := -0.07
-@export var joypad_sens_x := -0.07
-@export var joypad_sens_y := -0.07
-
-@export var capture_mouse := true
-
-@export var load_on_ready := true
-
-@export var camera_3d: Camera3D
-@export var spring_arm: SpringArm3D
-@export var mesh_instance: MeshInstance3D
-
 @export_tool_button("Generate Nodes") var initialize_nodes := func() -> void:
+	if not Engine.is_editor_hint(): return
 	for c in get_children(): c.free()
 	
+	pivot = Node3D.new()
+	pivot.position.y = 1.0
+	Proto.add_node(self, pivot)
+	
 	spring_arm = SpringArm3D.new()
-	spring_arm.position.y = 1.0
-	spring_arm.spring_length = 3.0
+	spring_arm.position.x = 0.6
+	spring_arm.spring_length = 2.0
 	spring_arm.rotation_degrees.x = -20.0
-	Proto.add_node(self, spring_arm)
+	Proto.add_node(pivot, spring_arm)
 	
 	camera_3d = Camera3D.new()
 	Proto.add_node(spring_arm, camera_3d)
+	
+	if interactable_raycast:
+		raycast = RayCast3D.new()
+		raycast.target_position = Vector3(0,0,-raycast_length)
+		raycast.collide_with_areas = true
+		raycast.collide_with_bodies = false
+		Proto.add_node(camera_3d, raycast)
 	
 	var collision_shape_3d := CollisionShape3D.new()
 	
@@ -59,11 +56,51 @@ extends CharacterBody3D
 	
 	position.y = 0.9
 	
+	if interactable_raycast:
+		proto_signal_hub = Proto.find_proto_signal_hub(get_tree().edited_scene_root)
+		if proto_signal_hub == null:
+			proto_signal_hub = ProtoSignalHub.new()
+			Proto.add_node(get_parent(), proto_signal_hub, "ProtoSignalHub")
+	
 	Proto.proto_print("Third person character controller nodes configured")
+
+@export_category("Config")
+@export var capture_mouse := true
+@export var load_on_ready := true
+@export var interactable_raycast := true:
+	set(value):
+		interactable_raycast = value
+		initialize_nodes.call()
+	get:
+		return interactable_raycast
+
+@export var raycast_length := 4.0:
+	set(value):
+		raycast_length = value
+		initialize_nodes.call()
+	get:
+		return raycast_length
+
+@export_category("Character Settings")
+@export var speed := 5.0
+@export var jump_velocity := 4.5
+@export var sens_x := -0.07
+@export var sens_y := -0.07
+@export var joypad_sens_x := -0.07
+@export var joypad_sens_y := -0.07
+
+@export_category("Node References")
+@export var camera_3d: Camera3D
+@export var spring_arm: SpringArm3D
+@export var mesh_instance: MeshInstance3D
+@export var raycast: RayCast3D
+@export var proto_signal_hub: ProtoSignalHub
+@export var pivot: Node3D
 
 var wasd_controls := false
 var joystick_look_controls := false
 var jump_controls := false
+var interact_controls := false
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
@@ -78,12 +115,17 @@ func _ready() -> void:
 			and InputMap.has_action(&"look_up") and InputMap.has_action(&"look_down")
 		
 		jump_controls = InputMap.has_action(&"jump")
+		interact_controls = InputMap.has_action(&"interact")
 		
 		if capture_mouse: Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		pivot_camera(event.relative.x, event.relative.y, sens_x, sens_y)
+
+func _process(_delta: float) -> void:
+	if interactable_raycast and interact_controls:
+		Proto.process_interact_raycast(proto_signal_hub, raycast)
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -120,4 +162,4 @@ func _physics_process(delta: float) -> void:
 
 func pivot_camera(relative_x: float, relative_y: float, _sens_x: float, _sens_y: float, factor := 100.0) -> void:
 	spring_arm.rotation.x += _sens_y * relative_y / factor
-	spring_arm.rotation.y += _sens_x * relative_x / factor
+	pivot.rotation.y += _sens_x * relative_x / factor
