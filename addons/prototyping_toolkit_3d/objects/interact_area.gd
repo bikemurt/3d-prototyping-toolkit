@@ -49,7 +49,7 @@ func _ready() -> void:
 		if interact_label:
 			interact_label.hide()
 
-func on_interact(node: Node) -> void:
+func on_interact(_source: Node, node: Node) -> void:
 	interact_label.text = "Interact (%s)" % node.name
 	interact_label.show()
 	await get_tree().create_timer(1.0).timeout

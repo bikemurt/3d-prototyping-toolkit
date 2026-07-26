@@ -24,7 +24,7 @@ static func find_proto_signal_hub(node: Node) -> ProtoSignalHub:
 	if node is ProtoSignalHub: return node
 	return null
 
-static func process_interact_raycast(proto_signal_hub: ProtoSignalHub, raycast: RayCast3D) -> void:
+static func process_interact_raycast(source: Node3D, proto_signal_hub: ProtoSignalHub, raycast: RayCast3D) -> void:
 	if proto_signal_hub and raycast:
 		var is_colliding := raycast.is_colliding()
 		var collider := raycast.get_collider()
@@ -37,4 +37,4 @@ static func process_interact_raycast(proto_signal_hub: ProtoSignalHub, raycast: 
 			proto_signal_hub.last_is_colliding = is_colliding
 		
 		if is_colliding and Input.is_action_just_pressed(&"interact"):
-			proto_signal_hub.interact.emit(collider)
+			proto_signal_hub.interact.emit(source, collider)

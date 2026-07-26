@@ -98,7 +98,7 @@ func _input(event: InputEvent) -> void:
 
 func _process(_delta: float) -> void:
 	if interactable_raycast and interact_controls:
-		Proto.process_interact_raycast(proto_signal_hub, raycast)
+		Proto.process_interact_raycast(self, proto_signal_hub, raycast)
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():

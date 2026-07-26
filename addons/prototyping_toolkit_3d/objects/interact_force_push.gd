@@ -43,5 +43,6 @@ func _ready() -> void:
 		if proto_signal_hub:
 			proto_signal_hub.interact.connect(on_interact)
 
-func on_interact(_node: Node) -> void:
-	apply_central_impulse(Vector3(0,0,-force_strength))
+func on_interact(source: Node3D, target: Node3D) -> void:
+	var direction := source.global_position.direction_to(target.global_position)
+	apply_central_impulse(force_strength * direction)
