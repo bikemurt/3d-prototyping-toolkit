@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://w7pc4bi2hrwc" path="res://addons/prototyping_toolkit_3d/hud/crosshair.gd" id="7_wc5p8"]
 [ext_resource type="Script" uid="uid://ug2t64m1nmhx" path="res://addons/prototyping_toolkit_3d/character_controllers/third_person_character.gd" id="8_4arys"]
 [ext_resource type="Script" uid="uid://cw7btrv553exk" path="res://addons/prototyping_toolkit_3d/systems/signal_hub.gd" id="8_jsk3o"]
+[ext_resource type="Script" uid="uid://bb7cpovba4gjj" path="res://addons/prototyping_toolkit_3d/objects/interact_force_push.gd" id="9_4arys"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jsk3o"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -47,6 +48,10 @@ albedo_color = Color(0.5411765, 0.16862746, 0.8862745, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6iypd"]
 albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6iypd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tereu"]
 
 [node name="Node3D" type="Node3D" unique_id=7953707]
 
@@ -191,3 +196,20 @@ surface_material_override/0 = SubResource("StandardMaterial3D_4arys")
 transform = Transform3D(-1.3113417e-08, -0.3, 0, 0.3, -1.3113417e-08, 0, 0, 0, 0.3, 0, 0.4, -0.4)
 mesh = SubResource("CapsuleMesh_jsk3o")
 surface_material_override/0 = SubResource("StandardMaterial3D_6iypd")
+
+[node name="ProtoInteractForcePush" type="RigidBody3D" parent="." unique_id=1063917443 node_paths=PackedStringArray("proto_signal_hub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.39060116, 0.5, -7.372733)
+script = ExtResource("9_4arys")
+proto_signal_hub = NodePath("../ProtoSignalHub")
+metadata/_custom_type_script = "uid://bb7cpovba4gjj"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ProtoInteractForcePush" unique_id=2052280444]
+mesh = SubResource("BoxMesh_6iypd")
+
+[node name="Area3D" type="Area3D" parent="ProtoInteractForcePush" unique_id=1639761654]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ProtoInteractForcePush/Area3D" unique_id=531205144]
+shape = SubResource("BoxShape3D_tereu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ProtoInteractForcePush" unique_id=1893363354]
+shape = SubResource("BoxShape3D_tereu")

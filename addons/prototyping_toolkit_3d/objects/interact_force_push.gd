@@ -32,14 +32,16 @@ extends RigidBody3D
 @export var load_on_ready := true
 @export var mesh := true
 @export var force_strength := 5.0
+@export var proto_signal_hub: ProtoSignalHub
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		if load_on_ready:
 			if get_child_count() == 0: initialize_nodes.call()
+			proto_signal_hub = Proto.find_proto_signal_hub(get_tree().edited_scene_root)
 	else:
-		if Proto.signal_hub:
-			Proto.signal_hub.interact.connect(on_interact)
+		if proto_signal_hub:
+			proto_signal_hub.interact.connect(on_interact)
 
 func on_interact(_node: Node) -> void:
 	apply_central_impulse(Vector3(0,0,-force_strength))
